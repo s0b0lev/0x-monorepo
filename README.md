@@ -103,10 +103,10 @@ These packages are all under development. See [/contracts/README.md](/contracts/
 
 #### Private Packages
 
-| Package                                            | Description                                                                      |
-| -------------------------------------------------- | -------------------------------------------------------------------------------- |
-| [`@0x/instant`](/packages/instant)                 | A free and flexible way to offer simple crypto purchasing in any app or website. |
-| [`@0x/website`](/packages/website)                 | 0x website                                                                       |
+| Package                            | Description                                                                      |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| [`@0x/instant`](/packages/instant) | A free and flexible way to offer simple crypto purchasing in any app or website. |
+| [`@0x/website`](/packages/website) | 0x website                                                                       |
 
 ## Usage
 
