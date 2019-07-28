@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/web3_wrapper"](../modules/_src_web3_wrapper_.md) / [Web3Wrapper](_src_web3_wrapper_.web3wrapper.md) /
-
-# Class: Web3Wrapper
+> # Class: Web3Wrapper
 
 An alternative to the Web3.js library that provides a consistent, clean, promise-based interface.
 
@@ -66,7 +62,7 @@ An alternative to the Web3.js library that provides a consistent, clean, promise
 
 \+ **new Web3Wrapper**(`supportedProvider`: `SupportedProvider`, `callAndTxnDefaults`: `Partial<CallData>`): *[Web3Wrapper](_src_web3_wrapper_.web3wrapper.md)*
 
-*Defined in [src/web3_wrapper.ts:145](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L145)*
+*Defined in [src/web3_wrapper.ts:145](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L145)*
 
 Instantiates a new Web3Wrapper.
 
@@ -87,7 +83,7 @@ An instance of the Web3Wrapper class.
 
 • **abiDecoder**: *`AbiDecoder`*
 
-*Defined in [src/web3_wrapper.ts:54](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L54)*
+*Defined in [src/web3_wrapper.ts:54](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L54)*
 
 ___
 
@@ -95,7 +91,7 @@ ___
 
 • **isZeroExWeb3Wrapper**: *boolean* = true
 
-*Defined in [src/web3_wrapper.ts:53](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L53)*
+*Defined in [src/web3_wrapper.ts:53](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L53)*
 
 Flag to check if this instance is of type Web3Wrapper
 
@@ -105,7 +101,7 @@ Flag to check if this instance is of type Web3Wrapper
 
 ▸ **awaitTransactionMinedAsync**(`txHash`: string, `pollingIntervalMs`: number, `timeoutMs?`: undefined | number): *`Promise<TransactionReceiptWithDecodedLogs>`*
 
-*Defined in [src/web3_wrapper.ts:568](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L568)*
+*Defined in [src/web3_wrapper.ts:568](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L568)*
 
 Waits for a transaction to be mined and returns the transaction receipt.
 Note that just because a transaction was mined does not mean it was
@@ -131,7 +127,7 @@ ___
 
 ▸ **awaitTransactionSuccessAsync**(`txHash`: string, `pollingIntervalMs`: number, `timeoutMs?`: undefined | number): *`Promise<TransactionReceiptWithDecodedLogs>`*
 
-*Defined in [src/web3_wrapper.ts:643](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L643)*
+*Defined in [src/web3_wrapper.ts:643](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L643)*
 
 Waits for a transaction to be mined and returns the transaction receipt.
 Unlike awaitTransactionMinedAsync, it will throw if the receipt has a
@@ -157,7 +153,7 @@ ___
 
 ▸ **callAsync**(`callData`: `CallData`, `defaultBlock?`: `BlockParam`): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:525](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L525)*
+*Defined in [src/web3_wrapper.ts:525](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L525)*
 
 Call a smart contract method at a given block height
 
@@ -178,7 +174,7 @@ ___
 
 ▸ **doesContractExistAtAddressAsync**(`address`: string): *`Promise<boolean>`*
 
-*Defined in [src/web3_wrapper.ts:273](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L273)*
+*Defined in [src/web3_wrapper.ts:273](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L273)*
 
 Check if a contract exists at a given address
 
@@ -198,7 +194,7 @@ ___
 
 ▸ **estimateGasAsync**(`txData`: `Partial<TxData>`): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:508](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L508)*
+*Defined in [src/web3_wrapper.ts:508](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L508)*
 
 Calculate the estimated gas cost for a given transaction
 
@@ -218,7 +214,7 @@ ___
 
 ▸ **getAvailableAddressesAsync**(): *`Promise<string[]>`*
 
-*Defined in [src/web3_wrapper.ts:421](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L421)*
+*Defined in [src/web3_wrapper.ts:421](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L421)*
 
 Retrieve the user addresses available through the backing provider
 
@@ -232,7 +228,7 @@ ___
 
 ▸ **getBalanceInWeiAsync**(`owner`: string, `defaultBlock?`: `BlockParam`): *`Promise<BigNumber>`*
 
-*Defined in [src/web3_wrapper.ts:254](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L254)*
+*Defined in [src/web3_wrapper.ts:254](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L254)*
 
 Retrieves an accounts Ether balance in wei
 
@@ -253,7 +249,7 @@ ___
 
 ▸ **getBlockIfExistsAsync**(`blockParam`: string | `BlockParam`): *`Promise<BlockWithoutTransactionData | undefined>`*
 
-*Defined in [src/web3_wrapper.ts:361](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L361)*
+*Defined in [src/web3_wrapper.ts:361](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L361)*
 
 Fetch a specific Ethereum block without transaction data
 
@@ -274,7 +270,7 @@ ___
 
 ▸ **getBlockNumberAsync**(): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:347](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L347)*
+*Defined in [src/web3_wrapper.ts:347](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L347)*
 
 Fetches the latest block number
 
@@ -288,7 +284,7 @@ ___
 
 ▸ **getBlockTimestampAsync**(`blockParam`: string | `BlockParam`): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:409](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L409)*
+*Defined in [src/web3_wrapper.ts:409](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L409)*
 
 Fetch a block's timestamp
 
@@ -308,7 +304,7 @@ ___
 
 ▸ **getBlockWithTransactionDataAsync**(`blockParam`: string | `BlockParam`): *`Promise<BlockWithTransactionData>`*
 
-*Defined in [src/web3_wrapper.ts:387](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L387)*
+*Defined in [src/web3_wrapper.ts:387](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L387)*
 
 Fetch a specific Ethereum block with transaction data
 
@@ -328,7 +324,7 @@ ___
 
 ▸ **getContractCodeAsync**(`address`: string, `defaultBlock?`: `BlockParam`): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:286](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L286)*
+*Defined in [src/web3_wrapper.ts:286](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L286)*
 
 Gets the contract code by address
 
@@ -349,7 +345,7 @@ ___
 
 ▸ **getContractDefaults**(): *`Partial<CallData>` | undefined*
 
-*Defined in [src/web3_wrapper.ts:164](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L164)*
+*Defined in [src/web3_wrapper.ts:164](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L164)*
 
 Get the contract defaults set to the Web3Wrapper instance
 
@@ -363,7 +359,7 @@ ___
 
 ▸ **getLogsAsync**(`filter`: `FilterObject`): *`Promise<LogEntry[]>`*
 
-*Defined in [src/web3_wrapper.ts:475](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L475)*
+*Defined in [src/web3_wrapper.ts:475](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L475)*
 
 Retrieve smart contract logs for a given filter
 
@@ -383,7 +379,7 @@ ___
 
 ▸ **getNetworkIdAsync**(): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:207](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L207)*
+*Defined in [src/web3_wrapper.ts:207](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L207)*
 
 Fetches the networkId of the backing Ethereum node
 
@@ -397,7 +393,7 @@ ___
 
 ▸ **getNodeTypeAsync**(): *`Promise<NodeType>`*
 
-*Defined in [src/web3_wrapper.ts:690](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L690)*
+*Defined in [src/web3_wrapper.ts:690](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L690)*
 
 Returns either NodeType.Geth or NodeType.Ganache depending on the type of
 the backing Ethereum node. Throws for any other type of node.
@@ -410,7 +406,7 @@ ___
 
 ▸ **getNodeVersionAsync**(): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:199](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L199)*
+*Defined in [src/web3_wrapper.ts:199](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L199)*
 
 Fetch the backing Ethereum node's version string (e.g `MetaMask/v4.2.0`)
 
@@ -424,7 +420,7 @@ ___
 
 ▸ **getProvider**(): *`SupportedProvider`*
 
-*Defined in [src/web3_wrapper.ts:171](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L171)*
+*Defined in [src/web3_wrapper.ts:171](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L171)*
 
 Retrieve the Web3 provider
 
@@ -438,7 +434,7 @@ ___
 
 ▸ **getTransactionByHashAsync**(`txHash`: string): *`Promise<Transaction>`*
 
-*Defined in [src/web3_wrapper.ts:239](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L239)*
+*Defined in [src/web3_wrapper.ts:239](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L239)*
 
 Retrieves the transaction data for a given transaction
 
@@ -458,7 +454,7 @@ ___
 
 ▸ **getTransactionReceiptIfExistsAsync**(`txHash`: string): *`Promise<TransactionReceipt | undefined>`*
 
-*Defined in [src/web3_wrapper.ts:217](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L217)*
+*Defined in [src/web3_wrapper.ts:217](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L217)*
 
 Retrieves the transaction receipt for a given transaction hash if found
 
@@ -478,7 +474,7 @@ ___
 
 ▸ **getTransactionTraceAsync**(`txHash`: string, `traceParams`: `TraceParams`): *`Promise<TransactionTrace>`*
 
-*Defined in [src/web3_wrapper.ts:305](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L305)*
+*Defined in [src/web3_wrapper.ts:305](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L305)*
 
 Gets the debug trace of a transaction
 
@@ -499,7 +495,7 @@ ___
 
 ▸ **increaseTimeAsync**(`timeDelta`: number): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:458](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L458)*
+*Defined in [src/web3_wrapper.ts:458](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L458)*
 
 Increase the next blocks timestamp on TestRPC/Ganache or Geth local node.
 Will throw if provider is neither TestRPC/Ganache or Geth.
@@ -518,7 +514,7 @@ ___
 
 ▸ **isSenderAddressAvailableAsync**(`senderAddress`: string): *`Promise<boolean>`*
 
-*Defined in [src/web3_wrapper.ts:189](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L189)*
+*Defined in [src/web3_wrapper.ts:189](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L189)*
 
 Check whether an address is available through the backing provider. This can be
 useful if you want to know whether a user can sign messages or transactions from
@@ -540,7 +536,7 @@ ___
 
 ▸ **mineBlockAsync**(): *`Promise<void>`*
 
-*Defined in [src/web3_wrapper.ts:450](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L450)*
+*Defined in [src/web3_wrapper.ts:450](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L450)*
 
 Mine a block on a TestRPC/Ganache local node
 
@@ -552,7 +548,7 @@ ___
 
 ▸ **revertSnapshotAsync**(`snapshotId`: number): *`Promise<boolean>`*
 
-*Defined in [src/web3_wrapper.ts:442](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L442)*
+*Defined in [src/web3_wrapper.ts:442](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L442)*
 
 Revert the blockchain state to a previous snapshot state on TestRPC/Ganache local node
 
@@ -572,7 +568,7 @@ ___
 
 ▸ **sendRawPayloadAsync**<**A**>(`payload`: `Partial<JSONRPCRequestPayload>`): *`Promise<A>`*
 
-*Defined in [src/web3_wrapper.ts:671](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L671)*
+*Defined in [src/web3_wrapper.ts:671](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L671)*
 
 Sends a raw Ethereum JSON RPC payload and returns the response's `result` key
 
@@ -596,7 +592,7 @@ ___
 
 ▸ **sendTransactionAsync**(`txData`: `TxData`): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:547](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L547)*
+*Defined in [src/web3_wrapper.ts:547](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L547)*
 
 Send a transaction
 
@@ -616,7 +612,7 @@ ___
 
 ▸ **setHeadAsync**(`blockNumber`: number): *`Promise<void>`*
 
-*Defined in [src/web3_wrapper.ts:662](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L662)*
+*Defined in [src/web3_wrapper.ts:662](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L662)*
 
 Calls the 'debug_setHead' JSON RPC method, which sets the current head of
 the local chain by block number. Note, this is a destructive action and
@@ -638,7 +634,7 @@ ___
 
 ▸ **setProvider**(`supportedProvider`: `SupportedProvider`): *void*
 
-*Defined in [src/web3_wrapper.ts:178](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L178)*
+*Defined in [src/web3_wrapper.ts:178](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L178)*
 
 Update the used Web3 provider
 
@@ -656,7 +652,7 @@ ___
 
 ▸ **signMessageAsync**(`address`: string, `message`: string): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:319](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L319)*
+*Defined in [src/web3_wrapper.ts:319](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L319)*
 
 Sign a message with a specific address's private key (`eth_sign`)
 
@@ -677,7 +673,7 @@ ___
 
 ▸ **signTypedDataAsync**(`address`: string, `typedData`: any): *`Promise<string>`*
 
-*Defined in [src/web3_wrapper.ts:334](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L334)*
+*Defined in [src/web3_wrapper.ts:334](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L334)*
 
 Sign an EIP712 typed data message with a specific address's private key (`eth_signTypedData`)
 
@@ -698,7 +694,7 @@ ___
 
 ▸ **takeSnapshotAsync**(): *`Promise<number>`*
 
-*Defined in [src/web3_wrapper.ts:433](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L433)*
+*Defined in [src/web3_wrapper.ts:433](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L433)*
 
 Take a snapshot of the blockchain state on a TestRPC/Ganache local node
 
@@ -712,7 +708,7 @@ ___
 
 ▸ **isAddress**(`address`: string): *boolean*
 
-*Defined in [src/web3_wrapper.ts:65](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L65)*
+*Defined in [src/web3_wrapper.ts:65](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L65)*
 
 Check if an address is a valid Ethereum address
 
@@ -732,7 +728,7 @@ ___
 
 ▸ **toBaseUnitAmount**(`amount`: `BigNumber`, `decimals`: number): *`BigNumber`*
 
-*Defined in [src/web3_wrapper.ts:91](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L91)*
+*Defined in [src/web3_wrapper.ts:91](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L91)*
 
 A baseUnit is defined as the smallest denomination of a token. An amount expressed in baseUnits
 is the amount expressed in the smallest denomination.
@@ -755,7 +751,7 @@ ___
 
 ▸ **toUnitAmount**(`amount`: `BigNumber`, `decimals`: number): *`BigNumber`*
 
-*Defined in [src/web3_wrapper.ts:76](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L76)*
+*Defined in [src/web3_wrapper.ts:76](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L76)*
 
 A unit amount is defined as the amount of a token above the specified decimal places (integer part).
 E.g: If a currency has 18 decimal places, 1e18 or one quintillion of the currency is equivalent
@@ -778,7 +774,7 @@ ___
 
 ▸ **toWei**(`ethAmount`: `BigNumber`): *`BigNumber`*
 
-*Defined in [src/web3_wrapper.ts:107](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/web3_wrapper.ts#L107)*
+*Defined in [src/web3_wrapper.ts:107](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/web3_wrapper.ts#L107)*
 
 Convert an Ether amount from ETH to Wei
 

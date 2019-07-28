@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](../modules/_src_types_.md) / [TxDataRPC](_src_types_.txdatarpc.md) /
-
-# Interface: TxDataRPC
+> # Interface: TxDataRPC
 
 ## Hierarchy
 
@@ -30,7 +26,7 @@
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[data](_src_types_.calltxdatabaserpc.md#optional-data)*
 
-*Defined in [src/types.ts:76](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L76)*
+*Defined in [src/types.ts:76](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L76)*
 
 ___
 
@@ -38,7 +34,7 @@ ___
 
 • **from**: *string*
 
-*Defined in [src/types.ts:81](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L81)*
+*Defined in [src/types.ts:81](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L81)*
 
 ___
 
@@ -48,7 +44,7 @@ ___
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[gas](_src_types_.calltxdatabaserpc.md#optional-gas)*
 
-*Defined in [src/types.ts:74](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L74)*
+*Defined in [src/types.ts:74](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L74)*
 
 ___
 
@@ -58,7 +54,7 @@ ___
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[gasPrice](_src_types_.calltxdatabaserpc.md#optional-gasprice)*
 
-*Defined in [src/types.ts:75](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L75)*
+*Defined in [src/types.ts:75](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L75)*
 
 ___
 
@@ -68,7 +64,7 @@ ___
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[nonce](_src_types_.calltxdatabaserpc.md#optional-nonce)*
 
-*Defined in [src/types.ts:77](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L77)*
+*Defined in [src/types.ts:77](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L77)*
 
 ___
 
@@ -78,7 +74,7 @@ ___
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[to](_src_types_.calltxdatabaserpc.md#optional-to)*
 
-*Defined in [src/types.ts:72](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L72)*
+*Defined in [src/types.ts:72](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L72)*
 
 ___
 
@@ -88,4 +84,4 @@ ___
 
 *Inherited from [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md).[value](_src_types_.calltxdatabaserpc.md#optional-value)*
 
-*Defined in [src/types.ts:73](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L73)*
+*Defined in [src/types.ts:73](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L73)*

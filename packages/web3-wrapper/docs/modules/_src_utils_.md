@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/utils"](_src_utils_.md) /
-
-# External module: "src/utils"
+> # External module: "src/utils"
 
 ## Index
 
@@ -16,13 +12,13 @@
 
 ### ▪ **utils**: *object*
 
-*Defined in [src/utils.ts:4](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L4)*
+*Defined in [src/utils.ts:4](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L4)*
 
 ###  convertAmountToBigNumber
 
 ▸ **convertAmountToBigNumber**(`value`: string | number | `BigNumber`): *`BigNumber`*
 
-*Defined in [src/utils.ts:17](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L17)*
+*Defined in [src/utils.ts:17](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L17)*
 
 **Parameters:**
 
@@ -36,7 +32,7 @@ Name | Type |
 
 ▸ **convertHexToNumber**(`value`: string): *number*
 
-*Defined in [src/utils.ts:5](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L5)*
+*Defined in [src/utils.ts:5](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L5)*
 
 **Parameters:**
 
@@ -50,7 +46,7 @@ Name | Type |
 
 ▸ **convertHexToNumberOrNull**(`hex`: string | null): *number | null*
 
-*Defined in [src/utils.ts:10](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L10)*
+*Defined in [src/utils.ts:10](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L10)*
 
 **Parameters:**
 
@@ -64,7 +60,7 @@ Name | Type |
 
 ▸ **encodeAmountAsHexString**(`value`: string | number | `BigNumber`): *string*
 
-*Defined in [src/utils.ts:31](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L31)*
+*Defined in [src/utils.ts:31](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L31)*
 
 **Parameters:**
 
@@ -78,7 +74,7 @@ Name | Type |
 
 ▸ **isHexStrict**(`hex`: string | number): *boolean*
 
-*Defined in [src/utils.ts:49](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L49)*
+*Defined in [src/utils.ts:49](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L49)*
 
 **Parameters:**
 
@@ -92,7 +88,7 @@ Name | Type |
 
 ▸ **numberToHex**(`value`: number): *string*
 
-*Defined in [src/utils.ts:38](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/utils.ts#L38)*
+*Defined in [src/utils.ts:38](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/utils.ts#L38)*
 
 **Parameters:**
 

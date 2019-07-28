@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](_src_types_.md) /
-
-# External module: "src/types"
+> # External module: "src/types"
 
 ## Index
 
@@ -33,4 +29,4 @@
 
 Ƭ **TransactionReceiptStatusRPC**: *null | string | `0` | `1`*
 
-*Defined in [src/types.ts:69](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L69)*
+*Defined in [src/types.ts:69](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L69)*

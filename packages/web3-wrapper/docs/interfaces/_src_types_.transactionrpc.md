@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](../modules/_src_types_.md) / [TransactionRPC](_src_types_.transactionrpc.md) /
-
-# Interface: TransactionRPC
+> # Interface: TransactionRPC
 
 ## Hierarchy
 
@@ -30,7 +26,7 @@
 
 • **blockHash**: *string | null*
 
-*Defined in [src/types.ts:33](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L33)*
+*Defined in [src/types.ts:33](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L33)*
 
 ___
 
@@ -38,7 +34,7 @@ ___
 
 • **blockNumber**: *string | null*
 
-*Defined in [src/types.ts:34](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L34)*
+*Defined in [src/types.ts:34](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L34)*
 
 ___
 
@@ -46,7 +42,7 @@ ___
 
 • **from**: *string*
 
-*Defined in [src/types.ts:36](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L36)*
+*Defined in [src/types.ts:36](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L36)*
 
 ___
 
@@ -54,7 +50,7 @@ ___
 
 • **gas**: *string*
 
-*Defined in [src/types.ts:40](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L40)*
+*Defined in [src/types.ts:40](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L40)*
 
 ___
 
@@ -62,7 +58,7 @@ ___
 
 • **gasPrice**: *string*
 
-*Defined in [src/types.ts:39](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L39)*
+*Defined in [src/types.ts:39](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L39)*
 
 ___
 
@@ -70,7 +66,7 @@ ___
 
 • **hash**: *string*
 
-*Defined in [src/types.ts:31](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L31)*
+*Defined in [src/types.ts:31](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L31)*
 
 ___
 
@@ -78,7 +74,7 @@ ___
 
 • **input**: *string*
 
-*Defined in [src/types.ts:41](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L41)*
+*Defined in [src/types.ts:41](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L41)*
 
 ___
 
@@ -86,7 +82,7 @@ ___
 
 • **nonce**: *string*
 
-*Defined in [src/types.ts:32](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L32)*
+*Defined in [src/types.ts:32](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L32)*
 
 ___
 
@@ -94,7 +90,7 @@ ___
 
 • **to**: *string | null*
 
-*Defined in [src/types.ts:37](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L37)*
+*Defined in [src/types.ts:37](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L37)*
 
 ___
 
@@ -102,7 +98,7 @@ ___
 
 • **transactionIndex**: *string | null*
 
-*Defined in [src/types.ts:35](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L35)*
+*Defined in [src/types.ts:35](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L35)*
 
 ___
 
@@ -110,4 +106,4 @@ ___
 
 • **value**: *string*
 
-*Defined in [src/types.ts:38](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L38)*
+*Defined in [src/types.ts:38](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L38)*

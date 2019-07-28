@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](../modules/_src_types_.md) / [AbstractBlockRPC](_src_types_.abstractblockrpc.md) /
-
-# Interface: AbstractBlockRPC
+> # Interface: AbstractBlockRPC
 
 ## Hierarchy
 
@@ -40,7 +36,7 @@
 
 • **difficulty**: *string*
 
-*Defined in [src/types.ts:15](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L15)*
+*Defined in [src/types.ts:15](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L15)*
 
 ___
 
@@ -48,7 +44,7 @@ ___
 
 • **extraData**: *string*
 
-*Defined in [src/types.ts:17](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L17)*
+*Defined in [src/types.ts:17](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L17)*
 
 ___
 
@@ -56,7 +52,7 @@ ___
 
 • **gasLimit**: *string*
 
-*Defined in [src/types.ts:19](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L19)*
+*Defined in [src/types.ts:19](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L19)*
 
 ___
 
@@ -64,7 +60,7 @@ ___
 
 • **gasUsed**: *string*
 
-*Defined in [src/types.ts:20](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L20)*
+*Defined in [src/types.ts:20](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L20)*
 
 ___
 
@@ -72,7 +68,7 @@ ___
 
 • **hash**: *string | null*
 
-*Defined in [src/types.ts:7](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L7)*
+*Defined in [src/types.ts:7](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L7)*
 
 ___
 
@@ -80,7 +76,7 @@ ___
 
 • **logsBloom**: *string | null*
 
-*Defined in [src/types.ts:11](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L11)*
+*Defined in [src/types.ts:11](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L11)*
 
 ___
 
@@ -88,7 +84,7 @@ ___
 
 • **miner**: *string*
 
-*Defined in [src/types.ts:14](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L14)*
+*Defined in [src/types.ts:14](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L14)*
 
 ___
 
@@ -96,7 +92,7 @@ ___
 
 • **nonce**: *string | null*
 
-*Defined in [src/types.ts:9](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L9)*
+*Defined in [src/types.ts:9](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L9)*
 
 ___
 
@@ -104,7 +100,7 @@ ___
 
 • **number**: *string | null*
 
-*Defined in [src/types.ts:6](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L6)*
+*Defined in [src/types.ts:6](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L6)*
 
 ___
 
@@ -112,7 +108,7 @@ ___
 
 • **parentHash**: *string*
 
-*Defined in [src/types.ts:8](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L8)*
+*Defined in [src/types.ts:8](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L8)*
 
 ___
 
@@ -120,7 +116,7 @@ ___
 
 • **sha3Uncles**: *string*
 
-*Defined in [src/types.ts:10](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L10)*
+*Defined in [src/types.ts:10](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L10)*
 
 ___
 
@@ -128,7 +124,7 @@ ___
 
 • **size**: *string*
 
-*Defined in [src/types.ts:18](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L18)*
+*Defined in [src/types.ts:18](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L18)*
 
 ___
 
@@ -136,7 +132,7 @@ ___
 
 • **stateRoot**: *string*
 
-*Defined in [src/types.ts:13](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L13)*
+*Defined in [src/types.ts:13](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L13)*
 
 ___
 
@@ -144,7 +140,7 @@ ___
 
 • **timestamp**: *string*
 
-*Defined in [src/types.ts:21](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L21)*
+*Defined in [src/types.ts:21](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L21)*
 
 ___
 
@@ -152,7 +148,7 @@ ___
 
 • **totalDifficulty**: *string*
 
-*Defined in [src/types.ts:16](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L16)*
+*Defined in [src/types.ts:16](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L16)*
 
 ___
 
@@ -160,7 +156,7 @@ ___
 
 • **transactionsRoot**: *string*
 
-*Defined in [src/types.ts:12](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L12)*
+*Defined in [src/types.ts:12](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L12)*
 
 ___
 
@@ -168,4 +164,4 @@ ___
 
 • **uncles**: *string[]*
 
-*Defined in [src/types.ts:22](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L22)*
+*Defined in [src/types.ts:22](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L22)*

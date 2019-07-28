@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](../modules/_src_types_.md) / [BlockWithTransactionDataRPC](_src_types_.blockwithtransactiondatarpc.md) /
-
-# Interface: BlockWithTransactionDataRPC
+> # Interface: BlockWithTransactionDataRPC
 
 ## Hierarchy
 
@@ -41,7 +37,7 @@
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[difficulty](_src_types_.abstractblockrpc.md#difficulty)*
 
-*Defined in [src/types.ts:15](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L15)*
+*Defined in [src/types.ts:15](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L15)*
 
 ___
 
@@ -51,7 +47,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[extraData](_src_types_.abstractblockrpc.md#extradata)*
 
-*Defined in [src/types.ts:17](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L17)*
+*Defined in [src/types.ts:17](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L17)*
 
 ___
 
@@ -61,7 +57,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[gasLimit](_src_types_.abstractblockrpc.md#gaslimit)*
 
-*Defined in [src/types.ts:19](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L19)*
+*Defined in [src/types.ts:19](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L19)*
 
 ___
 
@@ -71,7 +67,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[gasUsed](_src_types_.abstractblockrpc.md#gasused)*
 
-*Defined in [src/types.ts:20](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L20)*
+*Defined in [src/types.ts:20](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L20)*
 
 ___
 
@@ -81,7 +77,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[hash](_src_types_.abstractblockrpc.md#hash)*
 
-*Defined in [src/types.ts:7](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L7)*
+*Defined in [src/types.ts:7](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L7)*
 
 ___
 
@@ -91,7 +87,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[logsBloom](_src_types_.abstractblockrpc.md#logsbloom)*
 
-*Defined in [src/types.ts:11](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L11)*
+*Defined in [src/types.ts:11](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L11)*
 
 ___
 
@@ -101,7 +97,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[miner](_src_types_.abstractblockrpc.md#miner)*
 
-*Defined in [src/types.ts:14](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L14)*
+*Defined in [src/types.ts:14](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L14)*
 
 ___
 
@@ -111,7 +107,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[nonce](_src_types_.abstractblockrpc.md#nonce)*
 
-*Defined in [src/types.ts:9](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L9)*
+*Defined in [src/types.ts:9](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L9)*
 
 ___
 
@@ -121,7 +117,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[number](_src_types_.abstractblockrpc.md#number)*
 
-*Defined in [src/types.ts:6](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L6)*
+*Defined in [src/types.ts:6](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L6)*
 
 ___
 
@@ -131,7 +127,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[parentHash](_src_types_.abstractblockrpc.md#parenthash)*
 
-*Defined in [src/types.ts:8](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L8)*
+*Defined in [src/types.ts:8](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L8)*
 
 ___
 
@@ -141,7 +137,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[sha3Uncles](_src_types_.abstractblockrpc.md#sha3uncles)*
 
-*Defined in [src/types.ts:10](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L10)*
+*Defined in [src/types.ts:10](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L10)*
 
 ___
 
@@ -151,7 +147,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[size](_src_types_.abstractblockrpc.md#size)*
 
-*Defined in [src/types.ts:18](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L18)*
+*Defined in [src/types.ts:18](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L18)*
 
 ___
 
@@ -161,7 +157,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[stateRoot](_src_types_.abstractblockrpc.md#stateroot)*
 
-*Defined in [src/types.ts:13](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L13)*
+*Defined in [src/types.ts:13](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L13)*
 
 ___
 
@@ -171,7 +167,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[timestamp](_src_types_.abstractblockrpc.md#timestamp)*
 
-*Defined in [src/types.ts:21](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L21)*
+*Defined in [src/types.ts:21](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L21)*
 
 ___
 
@@ -181,7 +177,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[totalDifficulty](_src_types_.abstractblockrpc.md#totaldifficulty)*
 
-*Defined in [src/types.ts:16](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L16)*
+*Defined in [src/types.ts:16](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L16)*
 
 ___
 
@@ -189,7 +185,7 @@ ___
 
 • **transactions**: *[TransactionRPC](_src_types_.transactionrpc.md)[]*
 
-*Defined in [src/types.ts:28](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L28)*
+*Defined in [src/types.ts:28](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L28)*
 
 ___
 
@@ -199,7 +195,7 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[transactionsRoot](_src_types_.abstractblockrpc.md#transactionsroot)*
 
-*Defined in [src/types.ts:12](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L12)*
+*Defined in [src/types.ts:12](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L12)*
 
 ___
 
@@ -209,4 +205,4 @@ ___
 
 *Inherited from [AbstractBlockRPC](_src_types_.abstractblockrpc.md).[uncles](_src_types_.abstractblockrpc.md#uncles)*
 
-*Defined in [src/types.ts:22](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L22)*
+*Defined in [src/types.ts:22](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L22)*

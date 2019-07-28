@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/marshaller"](_src_marshaller_.md) /
-
-# External module: "src/marshaller"
+> # External module: "src/marshaller"
 
 ## Index
 
@@ -16,7 +12,7 @@
 
 ### ▪ **marshaller**: *object*
 
-*Defined in [src/marshaller.ts:33](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L33)*
+*Defined in [src/marshaller.ts:33](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L33)*
 
 Utils to convert ethereum structures from user-space format to RPC format. (marshall/unmarshall)
 
@@ -24,7 +20,7 @@ Utils to convert ethereum structures from user-space format to RPC format. (mars
 
 ▸ **_marshalCallTxDataBase**(`callTxDataBase`: `Partial<CallTxDataBase>`): *`Partial<CallTxDataBaseRPC>`*
 
-*Defined in [src/marshaller.ts:208](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L208)*
+*Defined in [src/marshaller.ts:208](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L208)*
 
 **Parameters:**
 
@@ -38,7 +34,7 @@ Name | Type |
 
 ▸ **marshalAddress**(`address`: string): *string*
 
-*Defined in [src/marshaller.ts:176](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L176)*
+*Defined in [src/marshaller.ts:176](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L176)*
 
 Marshall address
 
@@ -56,7 +52,7 @@ marshalled address
 
 ▸ **marshalBlockParam**(`blockParam`: `BlockParam` | string | number | undefined): *string | undefined*
 
-*Defined in [src/marshaller.ts:187](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L187)*
+*Defined in [src/marshaller.ts:187](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L187)*
 
 Marshall block param
 
@@ -74,7 +70,7 @@ marshalled block param
 
 ▸ **marshalCallData**(`callData`: `Partial<CallData>`): *`Partial<CallDataRPC>`*
 
-*Defined in [src/marshaller.ts:159](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L159)*
+*Defined in [src/marshaller.ts:159](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L159)*
 
 Marshall call data
 
@@ -92,7 +88,7 @@ marshalled call data
 
 ▸ **marshalTxData**(`txData`: `Partial<TxData>`): *`Partial<TxDataRPC>`*
 
-*Defined in [src/marshaller.ts:133](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L133)*
+*Defined in [src/marshaller.ts:133](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L133)*
 
 Marshall transaction data
 
@@ -110,7 +106,7 @@ marshalled transaction data
 
 ▸ **unmarshalIntoBlockWithTransactionData**(`blockWithHexValues`: [BlockWithTransactionDataRPC](../interfaces/_src_types_.blockwithtransactiondatarpc.md)): *`BlockWithTransactionData`*
 
-*Defined in [src/marshaller.ts:59](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L59)*
+*Defined in [src/marshaller.ts:59](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L59)*
 
 Unmarshall block with transaction data
 
@@ -128,7 +124,7 @@ unmarshalled block with transaction data
 
 ▸ **unmarshalIntoBlockWithoutTransactionData**(`blockWithHexValues`: [BlockWithoutTransactionDataRPC](../interfaces/_src_types_.blockwithouttransactiondatarpc.md)): *`BlockWithoutTransactionData`*
 
-*Defined in [src/marshaller.ts:39](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L39)*
+*Defined in [src/marshaller.ts:39](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L39)*
 
 Unmarshall block without transaction data
 
@@ -146,7 +142,7 @@ unmarshalled block without transaction data
 
 ▸ **unmarshalLog**(`rawLog`: `RawLogEntry`): *`LogEntry`*
 
-*Defined in [src/marshaller.ts:199](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L199)*
+*Defined in [src/marshaller.ts:199](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L199)*
 
 Unmarshall log
 
@@ -164,7 +160,7 @@ unmarshalled log
 
 ▸ **unmarshalTransaction**(`txRpc`: [TransactionRPC](../interfaces/_src_types_.transactionrpc.md)): *`Transaction`*
 
-*Defined in [src/marshaller.ts:82](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L82)*
+*Defined in [src/marshaller.ts:82](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L82)*
 
 Unmarshall transaction
 
@@ -182,7 +178,7 @@ unmarshalled transaction
 
 ▸ **unmarshalTransactionReceipt**(`txReceiptRpc`: [TransactionReceiptRPC](../interfaces/_src_types_.transactionreceiptrpc.md)): *`TransactionReceipt`*
 
-*Defined in [src/marshaller.ts:99](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L99)*
+*Defined in [src/marshaller.ts:99](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L99)*
 
 Unmarshall transaction receipt
 
@@ -200,7 +196,7 @@ unmarshalled transaction receipt
 
 ▸ **unmarshalTxData**(`txDataRpc`: [TxDataRPC](../interfaces/_src_types_.txdatarpc.md)): *`TxData`*
 
-*Defined in [src/marshaller.ts:115](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/marshaller.ts#L115)*
+*Defined in [src/marshaller.ts:115](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/marshaller.ts#L115)*
 
 Unmarshall transaction data
 

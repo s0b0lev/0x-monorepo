@@ -1,8 +1,4 @@
-> **[Web3Wrapper](README.md)**
-
-[Globals](globals.md) /
-
-# Web3Wrapper
+> # Web3Wrapper
 
 ## Index
 

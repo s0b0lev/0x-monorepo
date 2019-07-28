@@ -1,8 +1,4 @@
-> **[Web3Wrapper](../README.md)**
-
-[Globals](../globals.md) / ["src/types"](../modules/_src_types_.md) / [CallTxDataBaseRPC](_src_types_.calltxdatabaserpc.md) /
-
-# Interface: CallTxDataBaseRPC
+> # Interface: CallTxDataBaseRPC
 
 ## Hierarchy
 
@@ -29,7 +25,7 @@
 
 • **data**? : *undefined | string*
 
-*Defined in [src/types.ts:76](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L76)*
+*Defined in [src/types.ts:76](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L76)*
 
 ___
 
@@ -37,7 +33,7 @@ ___
 
 • **gas**? : *undefined | string*
 
-*Defined in [src/types.ts:74](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L74)*
+*Defined in [src/types.ts:74](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L74)*
 
 ___
 
@@ -45,7 +41,7 @@ ___
 
 • **gasPrice**? : *undefined | string*
 
-*Defined in [src/types.ts:75](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L75)*
+*Defined in [src/types.ts:75](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L75)*
 
 ___
 
@@ -53,7 +49,7 @@ ___
 
 • **nonce**? : *undefined | string*
 
-*Defined in [src/types.ts:77](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L77)*
+*Defined in [src/types.ts:77](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L77)*
 
 ___
 
@@ -61,7 +57,7 @@ ___
 
 • **to**? : *undefined | string*
 
-*Defined in [src/types.ts:72](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L72)*
+*Defined in [src/types.ts:72](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L72)*
 
 ___
 
@@ -69,4 +65,4 @@ ___
 
 • **value**? : *undefined | string*
 
-*Defined in [src/types.ts:73](https://github.com/0xProject/0x-monorepo/blob/a9ccc3fad/packages/web3-wrapper/src/types.ts#L73)*
+*Defined in [src/types.ts:73](https://github.com/0xProject/0x-monorepo/blob/08a3bd42f/packages/web3-wrapper/src/types.ts#L73)*
