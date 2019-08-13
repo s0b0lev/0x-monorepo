@@ -37,6 +37,7 @@
     },
     "homepage": "https://github.com/0xProject/0x-monorepo/packages/asset-buyer/README.md",
     "dependencies": {
+        "@0x/orderbook": "^0.0.1",
         "@0x/assert": "^2.1.3",
         "@0x/connect": "^5.0.16",
         "@0x/contract-addresses": "^3.0.3",
