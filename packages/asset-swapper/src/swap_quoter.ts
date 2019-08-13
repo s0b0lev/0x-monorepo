@@ -1,7 +1,7 @@
 import { ContractWrappers } from '@0x/contract-wrappers';
 import { schemas } from '@0x/json-schemas';
 import { SignedOrder } from '@0x/order-utils';
-import { Orderbook } from '@0x/orderbook';
+import { MeshOrderProviderOpts, Orderbook, SRAPollingOrderProviderOpts } from '@0x/orderbook';
 import { MarketOperation } from '@0x/types';
 import { BigNumber, providerUtils } from '@0x/utils';
 import { SupportedProvider, ZeroExProvider } from 'ethereum-types';
@@ -10,7 +10,6 @@ import * as _ from 'lodash';
 import { constants } from './constants';
 import {
     LiquidityForAssetData,
-    LiquidityRequestOpts,
     MarketBuySwapQuote,
     MarketSellSwapQuote,
     OrdersAndFillableAmounts,
@@ -24,11 +23,6 @@ import { assetDataUtils } from './utils/asset_data_utils';
 import { calculateLiquidity } from './utils/calculate_liquidity';
 import { orderProviderResponseProcessor } from './utils/order_provider_response_processor';
 import { swapQuoteCalculator } from './utils/swap_quote_calculator';
-
-interface OrdersEntry {
-    ordersAndFillableAmounts: OrdersAndFillableAmounts;
-    lastRefreshTime: number;
-}
 
 export class SwapQuoter {
     public readonly provider: ZeroExProvider;
@@ -67,18 +61,16 @@ export class SwapQuoter {
     public static getSwapQuoterForStandardRelayerAPIUrl(
         supportedProvider: SupportedProvider,
         sraApiUrl: string,
-        options: Partial<SwapQuoterOpts> = {},
+        options: Partial<SwapQuoterOpts & SRAPollingOrderProviderOpts> = {},
     ): SwapQuoter {
         const provider = providerUtils.standardizeOrThrow(supportedProvider);
         assert.isWebUri('sraApiUrl', sraApiUrl);
-        const opts = {
-            ...constants.DEFAULT_SWAP_QUOTER_OPTS,
-            ...options,
-        };
         const orderbook = Orderbook.getOrderbookForPollingProvider({
             httpEndpoint: sraApiUrl,
-            pollingIntervalMs: opts.orderRefreshIntervalMs,
-            networkId: opts.networkId,
+            pollingIntervalMs:
+                options.orderRefreshIntervalMs || constants.DEFAULT_SWAP_QUOTER_OPTS.orderRefreshIntervalMs,
+            networkId: options.networkId || constants.DEFAULT_SWAP_QUOTER_OPTS.networkId,
+            perPage: options.perPage,
         });
         const swapQuoter = new SwapQuoter(provider, orderbook, options);
         return swapQuoter;
@@ -102,14 +94,10 @@ export class SwapQuoter {
         const provider = providerUtils.standardizeOrThrow(supportedProvider);
         assert.isWebUri('sraApiUrl', sraApiUrl);
         assert.isUri('sraWebsocketAPIUrl', sraWebsocketAPIUrl);
-        const opts = {
-            ...constants.DEFAULT_SWAP_QUOTER_OPTS,
-            ...options,
-        };
         const orderbook = Orderbook.getOrderbookForWebsocketProvider({
             httpEndpoint: sraApiUrl,
             websocketEndpoint: sraWebsocketAPIUrl,
-            networkId: opts.networkId,
+            networkId: options.networkId,
         });
         const swapQuoter = new SwapQuoter(provider, orderbook, options);
         return swapQuoter;
@@ -125,12 +113,13 @@ export class SwapQuoter {
     public static getSwapQuoterForMeshEndpoint(
         supportedProvider: SupportedProvider,
         meshEndpoint: string,
-        options: Partial<SwapQuoterOpts> = {},
+        options: Partial<SwapQuoterOpts & MeshOrderProviderOpts> = {},
     ): SwapQuoter {
         const provider = providerUtils.standardizeOrThrow(supportedProvider);
         assert.isUri('meshEndpoint', meshEndpoint);
         const orderbook = Orderbook.getOrderbookForMeshProvider({
             websocketEndpoint: meshEndpoint,
+            wsOpts: options.wsOpts,
         });
         const swapQuoter = new SwapQuoter(provider, orderbook, options);
         return swapQuoter;
@@ -139,7 +128,7 @@ export class SwapQuoter {
     /**
      * Instantiates a new SwapQuoter instance
      * @param   supportedProvider   The Provider instance you would like to use for interacting with the Ethereum network.
-     * @param   orderProvider       An object that conforms to OrderProvider, see type for definition.
+     * @param   orderbook           An object that conforms to Orderbook, see type for definition.
      * @param   options             Initialization options for the SwapQuoter. See type definition for details.
      *
      * @return  An instance of SwapQuoter
@@ -147,7 +136,7 @@ export class SwapQuoter {
     constructor(supportedProvider: SupportedProvider, orderbook: Orderbook, options: Partial<SwapQuoterOpts> = {}) {
         const { networkId, expiryBufferMs } = _.merge({}, constants.DEFAULT_SWAP_QUOTER_OPTS, options);
         const provider = providerUtils.standardizeOrThrow(supportedProvider);
-        assert.isValidOrderProvider('orderbook', orderbook);
+        assert.isValidOrderbook('orderbook', orderbook);
         assert.isNumber('networkId', networkId);
         assert.isNumber('expiryBufferMs', expiryBufferMs);
         this.provider = provider;
@@ -273,14 +262,12 @@ export class SwapQuoter {
      * Does not factor in slippage or fees
      * @param   makerAssetData      The makerAssetData of the desired asset to swap for (for more info: https://github.com/0xProject/0x-protocol-specification/blob/master/v2/v2-specification.md).
      * @param   takerAssetData      The takerAssetData of the asset to swap makerAssetData for (for more info: https://github.com/0xProject/0x-protocol-specification/blob/master/v2/v2-specification.md).
-     * @param   options             Options for the request. See type definition for more information.
      *
      * @return  An object that conforms to LiquidityForAssetData that satisfies the request. See type definition for more information.
      */
     public async getLiquidityForMakerTakerAssetDataPairAsync(
         makerAssetData: string,
         takerAssetData: string,
-        options: Partial<LiquidityRequestOpts> = {},
     ): Promise<LiquidityForAssetData> {
         assert.isString('makerAssetData', makerAssetData);
         assert.isString('takerAssetData', takerAssetData);
@@ -360,20 +347,12 @@ export class SwapQuoter {
         assetDataUtils.decodeAssetDataOrThrow(makerAssetData);
         assetDataUtils.decodeAssetDataOrThrow(takerAssetData);
         const zrxTokenAssetData = this._getZrxTokenAssetDataOrThrow();
-        // construct orderProvider request
-        const orderProviderRequest = {
-            makerAssetData,
-            takerAssetData,
-            // TODO this is not used in `throwIfInvalidResponse`
-            networkId: 1,
-        };
-        // const request = orderProviderRequest;
-        // get provider response
+        // get orders
         const response = await this.orderbook.getOrdersAsync(makerAssetData, takerAssetData);
         const adaptedResponse = { orders: response.map(o => ({ ...o.order, ...o.metaData })) };
         // since the order provider is an injected dependency, validate that it respects the API
         // ie. it should only return maker/taker assetDatas that are specified
-        orderProviderResponseProcessor.throwIfInvalidResponse(adaptedResponse, orderProviderRequest);
+        orderProviderResponseProcessor.throwIfInvalidResponse(adaptedResponse, makerAssetData, takerAssetData);
         // process the responses into one object
         const isMakerAssetZrxToken = makerAssetData === zrxTokenAssetData;
         const ordersAndFillableAmounts = await orderProviderResponseProcessor.processAsync(
@@ -423,14 +402,13 @@ export class SwapQuoter {
         marketOperation: MarketOperation,
         options: Partial<SwapQuoteRequestOpts>,
     ): Promise<SwapQuote> {
-        const { shouldForceOrderRefresh, slippagePercentage, shouldDisableRequestingFeeOrders } = _.merge(
+        const { slippagePercentage, shouldDisableRequestingFeeOrders } = _.merge(
             {},
             constants.DEFAULT_SWAP_QUOTE_REQUEST_OPTS,
             options,
         );
         assert.isString('makerAssetData', makerAssetData);
         assert.isString('takerAssetData', takerAssetData);
-        assert.isBoolean('shouldForceOrderRefresh', shouldForceOrderRefresh);
         assert.isNumber('slippagePercentage', slippagePercentage);
         const zrxTokenAssetData = this._getZrxTokenAssetDataOrThrow();
         const isMakerAssetZrxToken = makerAssetData === zrxTokenAssetData;
@@ -441,7 +419,6 @@ export class SwapQuoter {
             shouldDisableRequestingFeeOrders || isMakerAssetZrxToken
                 ? Promise.resolve(constants.EMPTY_ORDERS_AND_FILLABLE_AMOUNTS)
                 : this.getOrdersAndFillableAmountsAsync(zrxTokenAssetData, takerAssetData),
-            shouldForceOrderRefresh,
         ]);
 
         if (ordersAndFillableAmounts.orders.length === 0) {
