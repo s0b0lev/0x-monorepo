@@ -1,7 +1,7 @@
-import { ContractWrappers, ContractWrappersError, ForwarderWrapperError } from '@0x/contract-wrappers';
+import { ContractWrappers } from '@0x/contract-wrappers';
 import { calldataOptimizationUtils } from '@0x/contract-wrappers/lib/src/utils/calldata_optimization_utils';
-import { MarketOperation } from '@0x/types';
-import { AbiEncoder, providerUtils } from '@0x/utils';
+import { MarketOperation, RevertReason } from '@0x/types';
+import { AbiEncoder, BigNumber, providerUtils } from '@0x/utils';
 import { SupportedProvider, ZeroExProvider } from '@0x/web3-wrapper';
 import { MethodAbi } from 'ethereum-types';
 import * as _ from 'lodash';
@@ -192,45 +192,81 @@ export class ForwarderSwapQuoteConsumer implements SwapQuoteConsumerBase<Forward
         const { orders, feeOrders, worstCaseQuoteInfo } = quoteWithAffiliateFee;
 
         const finalTakerAddress = await swapQuoteConsumerUtils.getTakerAddressOrThrowAsync(this.provider, opts);
+        const formattedFeePercentage = utils.numberPercentageToEtherTokenAmountPercentage(feePercentage);
 
         try {
             let txHash: string;
             if (quoteWithAffiliateFee.type === MarketOperation.Buy) {
                 const { makerAssetFillAmount } = quoteWithAffiliateFee;
-                txHash = await this._contractWrappers.forwarder.marketBuyOrdersWithEthAsync(
+                // Validate success
+                await this._contractWrappers.forwarder.marketBuyOrdersWithEth.callAsync(
                     orders,
                     makerAssetFillAmount,
-                    finalTakerAddress,
-                    ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                    orders.map(o => o.signature),
                     feeOrders,
-                    feePercentage,
+                    feeOrders.map(o => o.signature),
+                    formattedFeePercentage,
                     feeRecipient,
                     {
-                        gasLimit,
+                        from: finalTakerAddress,
+                        value: ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                        gas: gasLimit,
                         gasPrice,
-                        shouldValidate: true,
+                    },
+                );
+                // Send transaction
+                txHash = await this._contractWrappers.forwarder.marketBuyOrdersWithEth.sendTransactionAsync(
+                    orders,
+                    makerAssetFillAmount,
+                    orders.map(o => o.signature),
+                    feeOrders,
+                    feeOrders.map(o => o.signature),
+                    formattedFeePercentage,
+                    feeRecipient,
+                    {
+                        from: finalTakerAddress,
+                        value: ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                        gas: gasLimit,
+                        gasPrice,
                     },
                 );
             } else {
-                txHash = await this._contractWrappers.forwarder.marketSellOrdersWithEthAsync(
+                // Validate success
+                await this._contractWrappers.forwarder.marketSellOrdersWithEth.callAsync(
                     orders,
-                    finalTakerAddress,
-                    ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                    orders.map(o => o.signature),
                     feeOrders,
-                    feePercentage,
+                    feeOrders.map(o => o.signature),
+                    formattedFeePercentage,
                     feeRecipient,
                     {
-                        gasLimit,
+                        from: finalTakerAddress,
+                        value: ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                        gas: gasLimit,
                         gasPrice,
-                        shouldValidate: true,
+                    },
+                );
+                // Send transaction
+                txHash = await this._contractWrappers.forwarder.marketSellOrdersWithEth.sendTransactionAsync(
+                    orders,
+                    orders.map(o => o.signature),
+                    feeOrders,
+                    feeOrders.map(o => o.signature),
+                    formattedFeePercentage,
+                    feeRecipient,
+                    {
+                        from: finalTakerAddress,
+                        value: ethAmount || worstCaseQuoteInfo.totalTakerTokenAmount,
+                        gas: gasLimit,
+                        gasPrice,
                     },
                 );
             }
             return txHash;
         } catch (err) {
-            if (_.includes(err.message, ContractWrappersError.SignatureRequestDenied)) {
+            if (_.includes(err.message, 'SIGNATURE_REQUEST_DENIED')) {
                 throw new Error(SwapQuoteConsumerError.SignatureRequestDenied);
-            } else if (_.includes(err.message, ForwarderWrapperError.CompleteFillFailed)) {
+            } else if (_.includes(err.message, RevertReason.CompleteFillFailed)) {
                 throw new Error(SwapQuoteConsumerError.TransactionValueTooLow);
             } else {
                 throw err;

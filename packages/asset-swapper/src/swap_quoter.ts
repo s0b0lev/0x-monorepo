@@ -1,3 +1,4 @@
+import { getContractAddressesForNetworkOrThrow } from '@0x/contract-addresses';
 import { ContractWrappers } from '@0x/contract-wrappers';
 import { schemas } from '@0x/json-schemas';
 import { SignedOrder } from '@0x/order-utils';
@@ -29,6 +30,7 @@ export class SwapQuoter {
     public readonly orderbook: Orderbook;
     public readonly expiryBufferMs: number;
     private readonly _contractWrappers: ContractWrappers;
+    private readonly _networkId: number;
 
     /**
      * Instantiates a new SwapQuoter instance given existing liquidity in the form of orders and feeOrders.
@@ -142,6 +144,7 @@ export class SwapQuoter {
         this.provider = provider;
         this.orderbook = orderbook;
         this.expiryBufferMs = expiryBufferMs;
+        this._networkId = networkId;
         this._contractWrappers = new ContractWrappers(this.provider, {
             networkId,
         });
@@ -374,13 +377,13 @@ export class SwapQuoter {
         takerAddress: string,
     ): Promise<[boolean, boolean]> {
         const orderValidatorWrapper = this._contractWrappers.orderValidator;
-        const balanceAndAllowance = await orderValidatorWrapper.getBalanceAndAllowanceAsync(
+        const [_balance, allowance] = await orderValidatorWrapper.getBalanceAndAllowance.callAsync(
             takerAddress,
             swapQuote.takerAssetData,
         );
         return [
-            balanceAndAllowance.allowance.isGreaterThanOrEqualTo(swapQuote.bestCaseQuoteInfo.totalTakerTokenAmount),
-            balanceAndAllowance.allowance.isGreaterThanOrEqualTo(swapQuote.worstCaseQuoteInfo.totalTakerTokenAmount),
+            allowance.isGreaterThanOrEqualTo(swapQuote.bestCaseQuoteInfo.totalTakerTokenAmount),
+            allowance.isGreaterThanOrEqualTo(swapQuote.worstCaseQuoteInfo.totalTakerTokenAmount),
         ];
     }
 
@@ -389,7 +392,8 @@ export class SwapQuoter {
      * Will throw if ZRX does not exist for the current network.
      */
     private _getZrxTokenAssetDataOrThrow(): string {
-        return this._contractWrappers.exchange.getZRXAssetData();
+        const { zrxToken } = getContractAddressesForNetworkOrThrow(this._networkId);
+        return assetDataUtils.encodeERC20AssetData(zrxToken);
     }
 
     /**

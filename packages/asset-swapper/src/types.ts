@@ -168,7 +168,9 @@ export interface SwapQuoteConsumerOpts {
 /**
  * Represents the options provided to a generic SwapQuoteConsumer
  */
-export interface SwapQuoteGetOutputOptsBase {}
+export interface SwapQuoteGetOutputOptsBase {
+    takerAddress?: string;
+}
 
 /**
  * takerAddress: The address to perform the buy. Defaults to the first available address from the provider.

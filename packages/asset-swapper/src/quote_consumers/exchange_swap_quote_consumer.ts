@@ -1,5 +1,5 @@
-import { ContractWrappers, ContractWrappersError, ForwarderWrapperError } from '@0x/contract-wrappers';
-import { MarketOperation } from '@0x/types';
+import { ContractWrappers } from '@0x/contract-wrappers';
+import { MarketOperation, RevertReason } from '@0x/types';
 import { AbiEncoder, providerUtils } from '@0x/utils';
 import { SupportedProvider, ZeroExProvider } from '@0x/web3-wrapper';
 import { MethodAbi } from 'ethereum-types';
@@ -25,7 +25,7 @@ export class ExchangeSwapQuoteConsumer implements SwapQuoteConsumerBase<Exchange
     public readonly provider: ZeroExProvider;
     public readonly networkId: number;
 
-    private readonly _contractWrappers: ContractWrappers;
+    protected readonly _contractWrappers: ContractWrappers;
 
     constructor(supportedProvider: SupportedProvider, options: Partial<SwapQuoteConsumerOpts> = {}) {
         const { networkId } = _.merge({}, constants.DEFAULT_SWAP_QUOTER_OPTS, options);
@@ -144,34 +144,58 @@ export class ExchangeSwapQuoteConsumer implements SwapQuoteConsumerBase<Exchange
             let txHash: string;
             if (quote.type === MarketOperation.Buy) {
                 const { makerAssetFillAmount } = quote;
-                txHash = await this._contractWrappers.exchange.marketBuyOrdersNoThrowAsync(
+                // Validate
+                await this._contractWrappers.exchange.marketBuyOrdersNoThrow.callAsync(
                     orders,
                     makerAssetFillAmount,
-                    finalTakerAddress,
+                    orders.map(o => o.signature),
                     {
-                        gasLimit,
+                        from: finalTakerAddress,
+                        gas: gasLimit,
                         gasPrice,
-                        shouldValidate: true,
+                    },
+                );
+                // Send transaction
+                txHash = await this._contractWrappers.exchange.marketBuyOrdersNoThrow.sendTransactionAsync(
+                    orders,
+                    makerAssetFillAmount,
+                    orders.map(o => o.signature),
+                    {
+                        from: finalTakerAddress,
+                        gas: gasLimit,
+                        gasPrice,
                     },
                 );
             } else {
                 const { takerAssetFillAmount } = quote;
-                txHash = await this._contractWrappers.exchange.marketSellOrdersNoThrowAsync(
+                // Validate
+                await this._contractWrappers.exchange.marketSellOrdersNoThrow.callAsync(
                     orders,
                     takerAssetFillAmount,
-                    finalTakerAddress,
+                    orders.map(o => o.signature),
                     {
-                        gasLimit,
+                        from: finalTakerAddress,
+                        gas: gasLimit,
                         gasPrice,
-                        shouldValidate: true,
+                    },
+                );
+                // Send Transaction
+                txHash = await this._contractWrappers.exchange.marketSellOrdersNoThrow.sendTransactionAsync(
+                    orders,
+                    takerAssetFillAmount,
+                    orders.map(o => o.signature),
+                    {
+                        from: finalTakerAddress,
+                        gas: gasLimit,
+                        gasPrice,
                     },
                 );
             }
             return txHash;
         } catch (err) {
-            if (_.includes(err.message, ContractWrappersError.SignatureRequestDenied)) {
+            if (_.includes(err.message, 'SIGNATURE_REQUEST_DENIED')) {
                 throw new Error(SwapQuoteConsumerError.SignatureRequestDenied);
-            } else if (_.includes(err.message, ForwarderWrapperError.CompleteFillFailed)) {
+            } else if (_.includes(err.message, RevertReason.CompleteFillFailed)) {
                 throw new Error(SwapQuoteConsumerError.TransactionValueTooLow);
             } else {
                 throw err;

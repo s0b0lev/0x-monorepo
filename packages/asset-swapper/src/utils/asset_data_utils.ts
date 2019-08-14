@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 export const assetDataUtils = {
     ...sharedAssetDataUtils,
     getEtherTokenAssetData(contractWrappers: ContractWrappers): string {
-        const etherTokenAddress = contractWrappers.forwarder.etherTokenAddress;
+        const etherTokenAddress = contractWrappers.weth9.address;
         const etherTokenAssetData = sharedAssetDataUtils.encodeERC20AssetData(etherTokenAddress);
         return etherTokenAssetData;
     },

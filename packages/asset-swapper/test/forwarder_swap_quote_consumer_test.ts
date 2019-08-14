@@ -1,4 +1,4 @@
-import { ContractAddresses, ContractWrappers } from '@0x/contract-wrappers';
+import { ContractAddresses, ContractWrappers, ERC20TokenContract, WETH9Contract } from '@0x/contract-wrappers';
 import { BlockchainLifecycle, tokenUtils } from '@0x/dev-utils';
 import { assetDataUtils } from '@0x/order-utils';
 import { MarketOperation, SignedOrder } from '@0x/types';
@@ -30,6 +30,8 @@ const MARKET_OPERATION = MarketOperation.Sell;
 const FILLABLE_AMOUNTS = [new BigNumber(2), new BigNumber(3), new BigNumber(5)].map(value =>
     value.multipliedBy(ONE_ETH_IN_WEI),
 );
+// tslint:disable-next-line:custom-no-magic-numbers
+const UNLIMITED_ALLOWANCE = new BigNumber(2).pow(256).minus(1);
 
 describe('ForwarderSwapQuoteConsumer', () => {
     let contractWrappers: ContractWrappers;
@@ -44,6 +46,8 @@ describe('ForwarderSwapQuoteConsumer', () => {
     let takerAssetData: string;
     let wethAssetData: string;
     let contractAddresses: ContractAddresses;
+    let makerToken: ERC20TokenContract;
+    let takerToken: WETH9Contract;
 
     let orders: SignedOrder[];
     let marketSellSwapQuote: SwapQuote;
@@ -74,7 +78,6 @@ describe('ForwarderSwapQuoteConsumer', () => {
     });
     beforeEach(async () => {
         await blockchainLifecycle.startAsync();
-        const UNLIMITED_ALLOWANCE = contractWrappers.erc20Token.UNLIMITED_ALLOWANCE_IN_BASE_UNITS;
         erc20ProxyAddress = contractWrappers.erc20Proxy.address;
 
         const totalFillableAmount = FILLABLE_AMOUNTS.reduce(
@@ -82,19 +85,12 @@ describe('ForwarderSwapQuoteConsumer', () => {
             new BigNumber(0),
         );
 
-        await contractWrappers.erc20Token.transferAsync(
-            makerTokenAddress,
-            coinbaseAddress,
-            makerAddress,
-            totalFillableAmount,
-        );
+        makerToken = new ERC20TokenContract(makerTokenAddress, contractWrappers.getProvider());
+        takerToken = contractWrappers.weth9;
 
-        await contractWrappers.erc20Token.setAllowanceAsync(
-            makerTokenAddress,
-            makerAddress,
-            erc20ProxyAddress,
-            UNLIMITED_ALLOWANCE,
-        );
+        await makerToken.transfer.sendTransactionAsync(makerAddress, totalFillableAmount, { from: coinbaseAddress });
+        await makerToken.approve.sendTransactionAsync(erc20ProxyAddress, UNLIMITED_ALLOWANCE, { from: makerAddress });
+
         orders = await getSignedOrdersWithNoFeesAsync(
             provider,
             makerAssetData,
@@ -158,32 +154,32 @@ describe('ForwarderSwapQuoteConsumer', () => {
              * Does not test the validity of the state change performed by the forwarder smart contract
              */
             it('should perform a marketSell execution when provided a MarketSell type swapQuote', async () => {
-                let makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                let takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                let makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                let takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
                 await swapQuoteConsumer.executeSwapQuoteOrThrowAsync(marketSellSwapQuote, { takerAddress });
-                makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(0.5).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(new BigNumber(9.5).multipliedBy(ONE_ETH_IN_WEI));
             });
 
             it('should perform a marketBuy execution when provided a MarketBuy type swapQuote', async () => {
-                let makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                let takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                let makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                let takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
                 await swapQuoteConsumer.executeSwapQuoteOrThrowAsync(marketBuySwapQuote, { takerAddress });
-                makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(takerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(makerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
             });
 
             it('should perform a marketBuy execution with affiliate fees', async () => {
-                let makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                let takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                let makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                let takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 const feeRecipientEthBalanceBefore = await web3Wrapper.getBalanceInWeiAsync(feeRecipient);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
@@ -192,8 +188,8 @@ describe('ForwarderSwapQuoteConsumer', () => {
                     feePercentage: 0.05,
                     feeRecipient,
                 });
-                makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 const feeRecipientEthBalanceAfter = await web3Wrapper.getBalanceInWeiAsync(feeRecipient);
                 expect(makerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
                 expect(takerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
@@ -368,8 +364,8 @@ describe('ForwarderSwapQuoteConsumer', () => {
 
         describe('valid swap quote', async () => {
             it('provide correct and optimized calldata options with default options for a marketSell SwapQuote (no affiliate fees)', async () => {
-                let makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                let takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                let makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                let takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
                 const { calldataHexString, toAddress } = await swapQuoteConsumer.getCalldataOrThrowAsync(
@@ -384,14 +380,14 @@ describe('ForwarderSwapQuoteConsumer', () => {
                     value: marketSellSwapQuote.worstCaseQuoteInfo.totalTakerTokenAmount,
                     gas: 4000000,
                 });
-                makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(0.5).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(new BigNumber(9.5).multipliedBy(ONE_ETH_IN_WEI));
             });
             it('provide correct and optimized calldata options with default options for a marketBuy SwapQuote (no affiliate fees)', async () => {
-                let makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                let takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                let makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                let takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(makerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(takerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
                 const { calldataHexString, toAddress } = await swapQuoteConsumer.getCalldataOrThrowAsync(
@@ -406,8 +402,8 @@ describe('ForwarderSwapQuoteConsumer', () => {
                     value: marketBuySwapQuote.worstCaseQuoteInfo.totalTakerTokenAmount,
                     gas: 4000000,
                 });
-                makerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, makerAddress);
-                takerBalance = await contractWrappers.erc20Token.getBalanceAsync(makerTokenAddress, takerAddress);
+                makerBalance = await makerToken.balanceOf.callAsync(makerAddress);
+                takerBalance = await makerToken.balanceOf.callAsync(takerAddress);
                 expect(takerBalance).to.bignumber.equal(new BigNumber(10).multipliedBy(ONE_ETH_IN_WEI));
                 expect(makerBalance).to.bignumber.equal(constants.ZERO_AMOUNT);
             });
