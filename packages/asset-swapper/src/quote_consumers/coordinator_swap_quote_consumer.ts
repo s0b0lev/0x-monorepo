@@ -1,16 +1,9 @@
 import { CoordinatorContract } from '@0x/contract-wrappers';
-import {
-    CoordinatorServerApprovalRawResponse,
-    CoordinatorServerApprovalResponse,
-    CoordinatorServerError,
-    CoordinatorServerErrorMsg,
-    CoordinatorServerResponse,
-} from '@0x/contract-wrappers/lib/src/utils/coordinator_server_types';
 import { generatePseudoRandomSalt, signatureUtils } from '@0x/order-utils';
-import { MarketOperation, RevertReason, SignedOrder, SignedZeroExTransaction, ZeroExTransaction } from '@0x/types';
-import { BigNumber } from '@0x/utils';
+import { MarketOperation, RevertReason, SignatureType, SignedZeroExTransaction, ZeroExTransaction } from '@0x/types';
+import { Web3Wrapper } from '@0x/web3-wrapper';
 import { MethodAbi } from 'ethereum-types';
-import { flatten, includes } from 'lodash';
+import { includes } from 'lodash';
 
 import {
     CalldataInfo,
@@ -208,11 +201,35 @@ export class CoordinatorSwapQuoteConsumer extends ExchangeSwapQuoteConsumer {
             data: zeroExOperation,
             verifyingContractAddress: this._contractWrappers.exchange.address,
         };
-        const signedZeroExTransaction = await signatureUtils.ecSignTransactionAsync(
-            this.provider,
-            transaction,
-            takerAddress,
-        );
-        return signedZeroExTransaction;
+        // If the takerAddress is a contract we need to generate a isValidSignature SignatureType and skip
+        // the signing via the provider.
+        const web3Wrapper = new Web3Wrapper(this._contractWrappers.getProvider());
+        const contractCode = await web3Wrapper.getContractCodeAsync(takerAddress);
+        if (contractCode === '0x' || contractCode === '0x00') {
+            const signedZeroExTransaction = await signatureUtils.ecSignTransactionAsync(
+                this.provider,
+                transaction,
+                takerAddress,
+            );
+            return signedZeroExTransaction;
+        } else {
+            /*
+                    function isValidSignature(
+                            bytes32, // hash
+                            bytes calldata // signature
+                    )
+                        external
+                        pure
+                        returns (bytes4)
+                    {
+                        return IS_VALID_WALLET_SIGNATURE_MAGIC_VALUE;
+                    }
+             */
+            const signature = signatureUtils.convertToSignatureWithType('0x00', SignatureType.Wallet);
+            return {
+                ...transaction,
+                signature,
+            };
+        }
     }
 }
