@@ -23,7 +23,6 @@ export * from './generated-wrappers/eth_balance_checker';
 export * from '@0x/contract-addresses';
 
 export { ContractWrappers } from './contract_wrappers';
-export { CoordinatorWrapper } from './coordinator_wrapper';
 
 export { BlockRange } from '@0x/base-contract';
 export {
@@ -31,8 +30,6 @@ export {
     ContractError,
     ForwarderError,
     OrderAndTraderInfo,
-    CoordinatorServerCancellationResponse,
-    CoordinatorServerError,
     IndexedFilterValues,
     ContractWrappersConfig,
     OrderTransactionOpts,
@@ -42,3 +39,12 @@ export {
     DecodedLogEvent,
     TraderInfo,
 } from './types';
+
+export {
+    orderTxOptsSchema,
+} from './schemas/order_tx_opts_schema';
+export {
+    txOptsSchema,
+} from './schemas/tx_opts_schema';
+
+export { decorators } from './utils/decorators';

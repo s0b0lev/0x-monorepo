@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import * as wrappers from '@0x/abi-gen-wrappers';
+import * as wrappers from '@0x/contract-wrappers';
 import { getContractAddressesForNetworkOrThrow } from '@0x/contract-addresses';
 import { EmptyWalletSubprovider, RPCSubprovider, Web3ProviderEngine } from '@0x/subproviders';
 import { AssetProxyId } from '@0x/types';

@@ -1,4 +1,4 @@
-import { DummyERC20TokenContract, ERC20ProxyContract, ERC20TokenContract } from '@0x/abi-gen-wrappers';
+import { DummyERC20TokenContract, ERC20ProxyContract, ERC20TokenContract } from '@0x/contract-wrappers';
 import * as artifacts from '@0x/contract-artifacts';
 import { BlockchainLifecycle, devConstants } from '@0x/dev-utils';
 import { ExchangeContractErrs } from '@0x/types';

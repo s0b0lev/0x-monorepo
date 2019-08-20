@@ -1,3 +1,4 @@
+import { CoordinatorRegistryContract, ExchangeContract } from '@0x/contract-wrappers';
 import { constants } from '@0x/contracts-test-utils';
 import { defaultOrmConfig, getAppAsync } from '@0x/coordinator-server';
 import { BlockchainLifecycle, tokenUtils } from '@0x/dev-utils';
@@ -10,9 +11,7 @@ import * as http from 'http';
 import 'mocha';
 import * as nock from 'nock';
 
-import { ContractWrappers } from '../src';
-import { CoordinatorRegistryContract } from '../src/index';
-import { CoordinatorServerErrorMsg } from '../src/utils/coordinator_server_types';
+import { CoordinatorServerErrorMsg, CoordinatorWrapper } from '../src/index';
 
 import { chaiSetup } from './utils/chai_setup';
 import { migrateOnceAsync } from './utils/migrate';
@@ -31,7 +30,7 @@ describe('CoordinatorWrapper', () => {
     const takerTokenFillAmount = new BigNumber(5);
     let coordinatorServerApp: http.Server;
     let anotherCoordinatorServerApp: http.Server;
-    let contractWrappers: ContractWrappers;
+    let coordinatorWrapper: CoordinatorWrapper;
     let fillScenarios: FillScenarios;
     let exchangeContractAddress: string;
     let zrxTokenAddress: string;
@@ -67,8 +66,8 @@ describe('CoordinatorWrapper', () => {
             contractAddresses,
             blockPollingIntervalMs: 10,
         };
-        contractWrappers = new ContractWrappers(provider, config);
-        exchangeContractAddress = contractWrappers.exchange.address;
+        coordinatorWrapper = new CoordinatorWrapper(web3Wrapper, constants.TESTRPC_NETWORK_ID, contractAddresses.coordinator, contractAddresses.exchange, contractAddresses.coordinatorRegistry);
+        exchangeContractAddress = contractAddresses.exchange;
         userAddresses = await web3Wrapper.getAvailableAddressesAsync();
         zrxTokenAddress = contractAddresses.zrxToken;
         fillScenarios = new FillScenarios(
@@ -76,8 +75,8 @@ describe('CoordinatorWrapper', () => {
             userAddresses,
             zrxTokenAddress,
             exchangeContractAddress,
-            contractWrappers.erc20Proxy.address,
-            contractWrappers.erc721Proxy.address,
+            contractAddresses.erc20Proxy,
+            contractAddresses.erc721Proxy,
         );
         [
             ,
@@ -221,7 +220,7 @@ describe('CoordinatorWrapper', () => {
             fillableAmount,
             feeRecipientAddressOne,
             undefined,
-            contractWrappers.coordinator.address,
+            coordinatorWrapper.address,
         );
         anotherSignedOrder = await fillScenarios.createFillableSignedOrderWithFeesAsync(
             makerAssetData,
@@ -233,7 +232,7 @@ describe('CoordinatorWrapper', () => {
             fillableAmount,
             feeRecipientAddressOne,
             undefined,
-            contractWrappers.coordinator.address,
+            coordinatorWrapper.address,
         );
         signedOrderWithDifferentFeeRecipient = await fillScenarios.createFillableSignedOrderWithFeesAsync(
             makerAssetData,
@@ -245,7 +244,7 @@ describe('CoordinatorWrapper', () => {
             fillableAmount,
             feeRecipientAddressTwo,
             undefined,
-            contractWrappers.coordinator.address,
+            coordinatorWrapper.address,
         );
         signedOrderWithDifferentCoordinatorOperator = await fillScenarios.createFillableSignedOrderWithFeesAsync(
             makerAssetData,
@@ -257,7 +256,7 @@ describe('CoordinatorWrapper', () => {
             fillableAmount,
             feeRecipientAddressThree,
             undefined,
-            contractWrappers.coordinator.address,
+            coordinatorWrapper.address,
         );
     });
     afterEach(async () => {
@@ -288,7 +287,7 @@ describe('CoordinatorWrapper', () => {
     describe('fill order(s)', () => {
         describe('#fillOrderAsync', () => {
             it('should fill a valid order', async () => {
-                txHash = await contractWrappers.coordinator.fillOrderAsync(
+                txHash = await coordinatorWrapper.fillOrderAsync(
                     signedOrder,
                     takerTokenFillAmount,
                     takerAddress,
@@ -301,7 +300,7 @@ describe('CoordinatorWrapper', () => {
             it('should fill a batch of valid orders', async () => {
                 const signedOrders = [signedOrder, anotherSignedOrder];
                 const takerAssetFillAmounts = Array(2).fill(takerTokenFillAmount);
-                txHash = await contractWrappers.coordinator.batchFillOrdersAsync(
+                txHash = await coordinatorWrapper.batchFillOrdersAsync(
                     signedOrders,
                     takerAssetFillAmounts,
                     takerAddress,
@@ -312,7 +311,7 @@ describe('CoordinatorWrapper', () => {
             it('should fill a batch of orders with different feeRecipientAddresses with the same coordinator server', async () => {
                 const signedOrders = [signedOrder, anotherSignedOrder, signedOrderWithDifferentFeeRecipient];
                 const takerAssetFillAmounts = Array(3).fill(takerTokenFillAmount);
-                txHash = await contractWrappers.coordinator.batchFillOrdersAsync(
+                txHash = await coordinatorWrapper.batchFillOrdersAsync(
                     signedOrders,
                     takerAssetFillAmounts,
                     takerAddress,
@@ -331,7 +330,7 @@ describe('CoordinatorWrapper', () => {
                     signedOrderWithDifferentCoordinatorOperator,
                 ];
                 const takerAssetFillAmounts = Array(4).fill(takerTokenFillAmount);
-                txHash = await contractWrappers.coordinator.batchFillOrdersAsync(
+                txHash = await coordinatorWrapper.batchFillOrdersAsync(
                     signedOrders,
                     takerAssetFillAmounts,
                     takerAddress,
@@ -354,7 +353,7 @@ describe('CoordinatorWrapper', () => {
                 );
                 const signedOrders = [signedOrder, nonCoordinatorOrder];
                 const takerAssetFillAmounts = Array(2).fill(takerTokenFillAmount);
-                txHash = await contractWrappers.coordinator.batchFillOrdersAsync(
+                txHash = await coordinatorWrapper.batchFillOrdersAsync(
                     signedOrders,
                     takerAssetFillAmounts,
                     takerAddress,
@@ -366,7 +365,7 @@ describe('CoordinatorWrapper', () => {
     describe('soft cancel order(s)', () => {
         describe('#softCancelOrderAsync', () => {
             it('should soft cancel a valid order', async () => {
-                const response = await contractWrappers.coordinator.softCancelOrderAsync(signedOrder);
+                const response = await coordinatorWrapper.softCancelOrderAsync(signedOrder);
                 expect(response.outstandingFillSignatures).to.have.lengthOf(0);
                 expect(response.cancellationSignatures).to.have.lengthOf(1);
             });
@@ -374,14 +373,14 @@ describe('CoordinatorWrapper', () => {
         describe('#batchSoftCancelOrdersAsync', () => {
             it('should soft cancel a batch of valid orders', async () => {
                 const orders = [signedOrder, anotherSignedOrder];
-                const response = await contractWrappers.coordinator.batchSoftCancelOrdersAsync(orders);
+                const response = await coordinatorWrapper.batchSoftCancelOrdersAsync(orders);
                 expect(response).to.have.lengthOf(1);
                 expect(response[0].outstandingFillSignatures).to.have.lengthOf(0);
                 expect(response[0].cancellationSignatures).to.have.lengthOf(1);
             });
             it('should soft cancel a batch of orders with different feeRecipientAddresses', async () => {
                 const orders = [signedOrder, anotherSignedOrder, signedOrderWithDifferentFeeRecipient];
-                const response = await contractWrappers.coordinator.batchSoftCancelOrdersAsync(orders);
+                const response = await coordinatorWrapper.batchSoftCancelOrdersAsync(orders);
                 expect(response).to.have.lengthOf(1);
                 expect(response[0].outstandingFillSignatures).to.have.lengthOf(0);
                 expect(response[0].cancellationSignatures).to.have.lengthOf(2);
@@ -393,7 +392,7 @@ describe('CoordinatorWrapper', () => {
                     signedOrderWithDifferentFeeRecipient,
                     signedOrderWithDifferentCoordinatorOperator,
                 ];
-                const response = await contractWrappers.coordinator.batchSoftCancelOrdersAsync(orders);
+                const response = await coordinatorWrapper.batchSoftCancelOrdersAsync(orders);
                 expect(response).to.have.lengthOf(2);
                 expect(response[0].outstandingFillSignatures).to.have.lengthOf(0);
                 expect(response[0].cancellationSignatures).to.have.lengthOf(3);
@@ -404,26 +403,27 @@ describe('CoordinatorWrapper', () => {
     describe('hard cancel order(s)', () => {
         describe('#hardCancelOrderAsync', () => {
             it('should hard cancel a valid order', async () => {
-                txHash = await contractWrappers.coordinator.hardCancelOrderAsync(signedOrder);
+                txHash = await coordinatorWrapper.hardCancelOrderAsync(signedOrder);
                 await web3Wrapper.awaitTransactionSuccessAsync(txHash, constants.AWAIT_TRANSACTION_MINED_MS);
             });
         });
         describe('#batchHardCancelOrdersAsync', () => {
             it('should hard cancel a batch of valid orders', async () => {
                 const orders = [signedOrder, anotherSignedOrder];
-                txHash = await contractWrappers.coordinator.batchHardCancelOrdersAsync(orders);
+                txHash = await coordinatorWrapper.batchHardCancelOrdersAsync(orders);
                 await web3Wrapper.awaitTransactionSuccessAsync(txHash, constants.AWAIT_TRANSACTION_MINED_MS);
             });
         });
         describe('#cancelOrdersUpTo/getOrderEpochAsync', () => {
             it('should hard cancel orders up to target order epoch', async () => {
                 const targetOrderEpoch = new BigNumber(42);
-                txHash = await contractWrappers.coordinator.hardCancelOrdersUpToAsync(targetOrderEpoch, makerAddress);
+                txHash = await coordinatorWrapper.hardCancelOrdersUpToAsync(targetOrderEpoch, makerAddress);
 
                 await web3Wrapper.awaitTransactionSuccessAsync(txHash, constants.AWAIT_TRANSACTION_MINED_MS);
-                const orderEpoch = await contractWrappers.exchange.orderEpoch.callAsync(
+                const exchangeContract = new ExchangeContract(exchangeContractAddress, web3Wrapper.getProvider());
+                const orderEpoch = await exchangeContract.orderEpoch.callAsync(
                     makerAddress,
-                    contractWrappers.coordinator.address,
+                    coordinatorWrapper.address,
                 );
                 expect(orderEpoch).to.be.bignumber.equal(targetOrderEpoch.plus(1));
             });
@@ -443,7 +443,7 @@ describe('CoordinatorWrapper', () => {
             );
 
             expect(
-                contractWrappers.coordinator.fillOrderAsync(badOrder, takerTokenFillAmount, takerAddress),
+                coordinatorWrapper.fillOrderAsync(badOrder, takerTokenFillAmount, takerAddress),
             ).to.be.rejected();
         });
         it('should throw error when coordinator endpoint is malformed', async () => {
@@ -454,7 +454,7 @@ describe('CoordinatorWrapper', () => {
                 constants.AWAIT_TRANSACTION_MINED_MS,
             );
             expect(
-                contractWrappers.coordinator.fillOrderAsync(signedOrder, takerTokenFillAmount, takerAddress),
+                coordinatorWrapper.fillOrderAsync(signedOrder, takerTokenFillAmount, takerAddress),
             ).to.be.rejected();
         });
     });
@@ -502,7 +502,7 @@ describe('CoordinatorWrapper', () => {
                 .reply(400, serverValidationError);
         });
         it('should throw error when softCancel fails', done => {
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .softCancelOrderAsync(signedOrder)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -523,7 +523,7 @@ describe('CoordinatorWrapper', () => {
         });
         it('should throw error when batch soft cancel fails with single coordinator operator', done => {
             const orders = [signedOrder, signedOrderWithDifferentFeeRecipient];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchSoftCancelOrdersAsync(orders)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -551,7 +551,7 @@ describe('CoordinatorWrapper', () => {
                 .reply(200, serverCancellationSuccess);
 
             const signedOrders = [signedOrder, signedOrderWithDifferentCoordinatorOperator];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchSoftCancelOrdersAsync(signedOrders)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -579,7 +579,7 @@ describe('CoordinatorWrapper', () => {
                 .reply(400, serverValidationError);
 
             const signedOrders = [signedOrder, signedOrderWithDifferentCoordinatorOperator];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchSoftCancelOrdersAsync(signedOrders)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -608,7 +608,7 @@ describe('CoordinatorWrapper', () => {
                 });
         });
         it('should throw error when a fill fails', done => {
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .fillOrderAsync(signedOrder, takerTokenFillAmount, takerAddress)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -630,7 +630,7 @@ describe('CoordinatorWrapper', () => {
         it('should throw error when batch fill fails with single coordinator operator', done => {
             const signedOrders = [signedOrder, signedOrderWithDifferentFeeRecipient];
             const takerAssetFillAmounts = [takerTokenFillAmount, takerTokenFillAmount, takerTokenFillAmount];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchFillOrdersAsync(signedOrders, takerAssetFillAmounts, takerAddress)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -659,7 +659,7 @@ describe('CoordinatorWrapper', () => {
 
             const signedOrders = [signedOrder, signedOrderWithDifferentCoordinatorOperator];
             const takerAssetFillAmounts = [takerTokenFillAmount, takerTokenFillAmount, takerTokenFillAmount];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchFillOrdersAsync(signedOrders, takerAssetFillAmounts, takerAddress)
                 .then(res => {
                     expect(res).to.be.undefined();
@@ -688,7 +688,7 @@ describe('CoordinatorWrapper', () => {
 
             const signedOrders = [signedOrder, signedOrderWithDifferentCoordinatorOperator];
             const takerAssetFillAmounts = [takerTokenFillAmount, takerTokenFillAmount, takerTokenFillAmount];
-            contractWrappers.coordinator
+            coordinatorWrapper
                 .batchFillOrdersAsync(signedOrders, takerAssetFillAmounts, takerAddress)
                 .then(res => {
                     expect(res).to.be.undefined();

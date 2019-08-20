@@ -16,7 +16,7 @@ import { Web3Wrapper } from '@0x/web3-wrapper';
 import { SupportedProvider } from 'ethereum-types';
 import * as _ from 'lodash';
 
-import { CoordinatorWrapper } from './coordinator_wrapper';
+import { CoordinatorContract } from './generated-wrappers/coordinator';
 import { DutchAuctionContract } from './generated-wrappers/dutch_auction';
 import { ERC20ProxyContract } from './generated-wrappers/erc20_proxy';
 import { ERC721ProxyContract } from './generated-wrappers/erc721_proxy';
@@ -71,7 +71,7 @@ export class ContractWrappers {
     /**
      * An instance of the CoordinatorWrapper class containing methods for interacting with the Coordinator extension contract.
      */
-    public coordinator: CoordinatorWrapper;
+    public coordinator: CoordinatorContract;
 
     private readonly _web3Wrapper: Web3Wrapper;
     /**
@@ -113,13 +113,7 @@ export class ContractWrappers {
         this.forwarder = new ForwarderContract(contractAddresses.forwarder, this.getProvider());
         this.orderValidator = new OrderValidatorContract(contractAddresses.orderValidator, this.getProvider());
         this.dutchAuction = new DutchAuctionContract(contractAddresses.dutchAuction, this.getProvider());
-        this.coordinator = new CoordinatorWrapper(
-            this._web3Wrapper,
-            config.networkId,
-            contractAddresses.coordinator,
-            contractAddresses.exchange,
-            contractAddresses.coordinatorRegistry,
-        );
+        this.coordinator = new CoordinatorContract(contractAddresses.coordinator, this.getProvider());
         this.contractAddresses = contractAddresses;
     }
     /**

@@ -1,9 +1,11 @@
 import {
     ExchangeContract,
-    getContractAddressesForNetworkOrThrow,
     IAssetProxyContract,
+} from '@0x/contract-wrappers';
+import {
+    getContractAddressesForNetworkOrThrow,
     NetworkId,
-} from '@0x/abi-gen-wrappers';
+} from '@0x/contract-addresses';
 import { ExchangeContractErrs, RevertReason, SignedOrder } from '@0x/types';
 import { BigNumber, providerUtils } from '@0x/utils';
 import { SupportedProvider, ZeroExProvider } from 'ethereum-types';

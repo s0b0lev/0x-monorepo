@@ -1,4 +1,4 @@
-import { DummyERC20TokenContract, DummyERC721TokenContract, ExchangeContract } from '@0x/abi-gen-wrappers';
+import { DummyERC20TokenContract, DummyERC721TokenContract, ExchangeContract } from '@0x/contract-wrappers';
 import { assetDataUtils } from '@0x/order-utils';
 import { orderFactory } from '@0x/order-utils/lib/src/order_factory';
 import { OrderWithoutExchangeAddress, SignedOrder } from '@0x/types';

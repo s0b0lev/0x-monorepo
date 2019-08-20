@@ -1,5 +1,4 @@
 import { ContractAddresses, getContractAddressesForNetworkOrThrow, NetworkId } from '@0x/contract-addresses';
-import * as _ from 'lodash';
 
 /**
  * Returns the default contract addresses for the given networkId or throws with

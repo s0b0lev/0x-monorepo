@@ -81,4 +81,5 @@ export {
     OrdersAndRemainingMakerFillAmount,
 } from './types';
 
-export { ExchangeContract, NetworkId } from '@0x/abi-gen-wrappers';
+export { ExchangeContract } from '@0x/contract-wrappers';
+export { NetworkId } from '@0x/contract-addresses';

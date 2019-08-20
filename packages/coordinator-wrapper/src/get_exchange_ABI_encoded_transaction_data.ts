@@ -1,11 +1,10 @@
-import { ExchangeContract } from '../index';
-
+import { ExchangeContract } from '@0x/contract-wrappers';
 /**
  * Returns the ABI encoded transaction hash for a given method and arguments
  * @param methodName Must be a valid name of a function in the Solidity Exchange Contract
  * @param params The appropriate arguments for the method given, in order
  */
-export function getAbiEncodedTransactionData<K extends keyof ExchangeContract>(
+export function getExchangeABIEncodedTransactionData<K extends keyof ExchangeContract>(
     contractInstance: ExchangeContract,
     methodName: K,
     ...params: any[] // tslint:disable-line:trailing-comma

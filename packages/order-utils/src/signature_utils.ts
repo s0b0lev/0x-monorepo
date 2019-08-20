@@ -1,4 +1,4 @@
-import { ExchangeContract, IValidatorContract, IWalletContract } from '@0x/abi-gen-wrappers';
+import { ExchangeContract, IValidatorContract, IWalletContract } from '@0x/contract-wrappers';
 import { getContractAddressesForNetworkOrThrow } from '@0x/contract-addresses';
 import { schemas } from '@0x/json-schemas';
 import {

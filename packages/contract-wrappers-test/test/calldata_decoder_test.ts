@@ -4,11 +4,9 @@ import { assetDataUtils } from '@0x/order-utils';
 import { SignedOrder } from '@0x/types';
 import { addressUtils, BigNumber } from '@0x/utils';
 import * as chai from 'chai';
-import * as _ from 'lodash';
 import 'mocha';
 
-import { ContractAddresses, ContractWrappers } from '../src';
-import { getAbiEncodedTransactionData } from '../src/utils/getAbiEncodedTransactionData';
+import { ContractAddresses, ContractWrappers } from '@0x/contract-wrappers';
 
 import { chaiSetup } from './utils/chai_setup';
 import { migrateOnceAsync } from './utils/migrate';
@@ -81,9 +79,7 @@ describe('ABI Decoding Calldata', () => {
             blockPollingIntervalMs: 10,
         };
         contractWrappers = new ContractWrappers(provider, config);
-        matchOrdersTxData = getAbiEncodedTransactionData(
-            contractWrappers.exchange,
-            'matchOrders',
+        matchOrdersTxData = contractWrappers.exchange.matchOrders.getABIEncodedTransactionData(
             signedOrderLeft,
             signedOrderRight,
             signedOrderLeft.signature,

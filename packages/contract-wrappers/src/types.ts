@@ -106,11 +106,3 @@ export interface OrderAndTraderInfo {
     orderInfo: OrderInfo;
     traderInfo: TraderInfo;
 }
-
-export { CoordinatorServerCancellationResponse, CoordinatorServerError } from './utils/coordinator_server_types';
-
-export interface CoordinatorTransaction {
-    salt: BigNumber;
-    signerAddress: string;
-    data: string;
-}

@@ -1,5 +1,7 @@
+import { assert } from '@0x/assert';
 import { getContractAddressesForNetworkOrThrow } from '@0x/contract-addresses';
 import { Coordinator } from '@0x/contract-artifacts';
+import { CoordinatorContract, CoordinatorRegistryContract, decorators, ExchangeContract, OrderTransactionOpts, orderTxOptsSchema, txOptsSchema } from '@0x/contract-wrappers';
 import { schemas } from '@0x/json-schemas';
 import { generatePseudoRandomSalt, signatureUtils } from '@0x/order-utils';
 import { Order, SignedOrder, SignedZeroExTransaction, ZeroExTransaction } from '@0x/types';
@@ -9,12 +11,8 @@ import { ContractAbi } from 'ethereum-types';
 import * as HttpStatus from 'http-status-codes';
 import { flatten } from 'lodash';
 
-import { CoordinatorContract, CoordinatorRegistryContract, ExchangeContract } from './index';
-
-import { orderTxOptsSchema } from './schemas/order_tx_opts_schema';
-import { txOptsSchema } from './schemas/tx_opts_schema';
-import { CoordinatorTransaction, OrderTransactionOpts } from './types';
-import { assert } from './utils/assert';
+import { getExchangeABIEncodedTransactionData } from './get_exchange_ABI_encoded_transaction_data';
+import { CoordinatorTransaction } from './index';
 import {
     CoordinatorServerApprovalRawResponse,
     CoordinatorServerApprovalResponse,
@@ -22,9 +20,7 @@ import {
     CoordinatorServerError,
     CoordinatorServerErrorMsg,
     CoordinatorServerResponse,
-} from './utils/coordinator_server_types';
-import { decorators } from './utils/decorators';
-import { getAbiEncodedTransactionData } from './utils/getAbiEncodedTransactionData';
+} from './server_types';
 
 /**
  * This class includes all the functionality related to filling or cancelling orders through
@@ -108,7 +104,6 @@ export class CoordinatorWrapper {
         assert.isValidBaseUnitAmount('takerAssetFillAmount', takerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData(
             'fillOrder',
@@ -140,7 +135,6 @@ export class CoordinatorWrapper {
         assert.isValidBaseUnitAmount('takerAssetFillAmount', takerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData(
             'fillOrderNoThrow',
@@ -173,7 +167,6 @@ export class CoordinatorWrapper {
         assert.isValidBaseUnitAmount('takerAssetFillAmount', takerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData(
             'fillOrKillOrder',
@@ -212,7 +205,6 @@ export class CoordinatorWrapper {
         }
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -247,7 +239,6 @@ export class CoordinatorWrapper {
         }
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -282,7 +273,6 @@ export class CoordinatorWrapper {
         }
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -320,7 +310,6 @@ export class CoordinatorWrapper {
         assert.isBigNumber('makerAssetFillAmount', makerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -358,7 +347,6 @@ export class CoordinatorWrapper {
         assert.isBigNumber('takerAssetFillAmount', takerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -391,7 +379,6 @@ export class CoordinatorWrapper {
         assert.isBigNumber('makerAssetFillAmount', makerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -424,7 +411,6 @@ export class CoordinatorWrapper {
         assert.isBigNumber('takerAssetFillAmount', takerAssetFillAmount);
         assert.isETHAddressHex('takerAddress', takerAddress);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('takerAddress', takerAddress, this._web3Wrapper);
 
         const signatures = signedOrders.map(o => o.signature);
         const data = this._getAbiEncodedTransactionData(
@@ -447,7 +433,6 @@ export class CoordinatorWrapper {
     public async softCancelOrderAsync(order: Order | SignedOrder): Promise<CoordinatorServerCancellationResponse> {
         assert.doesConformToSchema('order', order, schemas.orderSchema);
         assert.isETHAddressHex('feeRecipientAddress', order.feeRecipientAddress);
-        assert.isSenderAddressAsync('makerAddress', order.makerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData('cancelOrder', order);
         const transaction = await this._generateSignedZeroExTransactionAsync(data, order.makerAddress);
@@ -482,7 +467,6 @@ export class CoordinatorWrapper {
     public async batchSoftCancelOrdersAsync(orders: SignedOrder[]): Promise<CoordinatorServerCancellationResponse[]> {
         assert.doesConformToSchema('orders', orders, schemas.ordersSchema);
         const makerAddress = getMakerAddressOrThrow(orders);
-        assert.isSenderAddressAsync('makerAddress', makerAddress, this._web3Wrapper);
         const data = this._getAbiEncodedTransactionData('batchCancelOrders', orders);
 
         const serverEndpointsToOrders = await this._mapServerEndpointsToOrdersAsync(orders);
@@ -539,7 +523,6 @@ export class CoordinatorWrapper {
     ): Promise<string> {
         assert.doesConformToSchema('order', order, schemas.orderSchema);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('makerAddress', order.makerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData('cancelOrder', order);
         const transaction = await this._generateSignedZeroExTransactionAsync(data, order.makerAddress);
@@ -572,7 +555,6 @@ export class CoordinatorWrapper {
         assert.doesConformToSchema('orders', orders, schemas.ordersSchema);
         const makerAddress = getMakerAddressOrThrow(orders);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('makerAddress', makerAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData('batchCancelOrders', orders);
         const transaction = await this._generateSignedZeroExTransactionAsync(data, makerAddress);
@@ -607,7 +589,6 @@ export class CoordinatorWrapper {
     ): Promise<string> {
         assert.isBigNumber('targetOrderEpoch', targetOrderEpoch);
         assert.doesConformToSchema('orderTransactionOpts', orderTransactionOpts, orderTxOptsSchema, [txOptsSchema]);
-        await assert.isSenderAddressAsync('senderAddress', senderAddress, this._web3Wrapper);
 
         const data = this._getAbiEncodedTransactionData('cancelOrdersUpTo', targetOrderEpoch);
         const transaction = await this._generateSignedZeroExTransactionAsync(data, senderAddress);
@@ -674,7 +655,7 @@ export class CoordinatorWrapper {
     }
 
     private _getAbiEncodedTransactionData<K extends keyof ExchangeContract>(methodName: K, ...args: any[]): string {
-        return getAbiEncodedTransactionData(this._exchangeInstance, methodName, ...args);
+        return getExchangeABIEncodedTransactionData(this._exchangeInstance, methodName, ...args);
     }
 
     private async _handleFillsAsync(

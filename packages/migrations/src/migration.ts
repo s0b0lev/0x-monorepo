@@ -1,4 +1,4 @@
-import * as wrappers from '@0x/abi-gen-wrappers';
+import * as wrappers from '@0x/contract-wrappers';
 import { ContractAddresses } from '@0x/contract-addresses';
 import * as artifacts from '@0x/contract-artifacts';
 import { assetDataUtils } from '@0x/order-utils';

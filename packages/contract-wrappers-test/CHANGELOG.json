@@ -1,0 +1,11 @@
+[
+    {
+        "version": "0.0.1",
+        "changes": [
+            {
+                "note": "Initial commit with exchange_wrapper_test and coordinator_wrapper_test",
+                "pr": 1
+            }
+        ]
+    }
+]
