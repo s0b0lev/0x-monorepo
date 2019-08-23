@@ -1,5 +1,14 @@
 [
     {
+        "version": "8.4.0",
+        "changes": [
+            {
+                "note": "Implement `simpleValidateOrderFillableOrThrowAsync` and `simpleValidateFillOrderOrThrowAsync`",
+                "pr": 2096
+            }
+        ]
+    },
+    {
         "version": "8.3.0",
         "changes": [
             {

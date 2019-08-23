@@ -80,6 +80,7 @@ export {
     FeeOrdersAndRemainingFeeAmount,
     OrdersAndRemainingTakerFillAmount,
     OrdersAndRemainingMakerFillAmount,
+    ValidateOrderFillableOpts,
 } from './types';
 
 export { ExchangeContract, NetworkId } from '@0x/abi-gen-wrappers';
