@@ -380,7 +380,9 @@ jobs:
     mythx-reports:
         docker:
             - image: circleci/node:10
+        working_directory: ~/repo
         steps:
+            - checkout
             - run:
                 name: Prepare truffle env
                 command: |
@@ -390,7 +392,8 @@ jobs:
                     npm install -g truffle
             - run:
                 name: Asset proxy
-                command: cd project/contracts/asset-proxy && npm install && truffle run verify
+                working_directory: ~/repo/contracts/asset-proxy
+                command: npm install && truffle run verify
 workflows:
     version: 2
     main:
