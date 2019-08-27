@@ -393,7 +393,7 @@ jobs:
             - run:
                 name: Asset proxy
                 working_directory: ~/repo/contracts/asset-proxy
-                command: npm install && truffle run verify
+                command: npm install && truffle run verify --no-progress
 workflows:
     version: 2
     main:
