@@ -65,6 +65,7 @@
         "npm-run-all": "^4.1.2",
         "shx": "^0.2.2",
         "solhint": "^1.4.1",
+        "truffle-security": "^1.5.5",
         "tslint": "5.11.0",
         "typescript": "3.0.1"
     },
